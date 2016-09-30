@@ -10,7 +10,7 @@ I've prepared the example project, The folder `/UnityLinePluginProject`
 
 Before you start, I've set it LINE library into it you can download it following LINE's instruction. 
 
-After downloaded extract it you'll see file named likes `line-android-sdk-x.x.xx.jar` Copy it to `/UnityLinePluginProject/Assets/UnityLinePlugin/Plugins/Android` 
+After downloaded. Extract it, You'll see file named likes `line-android-sdk-x.x.xx.jar` Copy it to `/UnityLinePluginProject/Assets/UnityLinePlugin/Plugins/Android` 
 
 Then copy folder `armeabi-v7a` and `x86` inside folder `libs` to `/UnityLinePluginProject/Assets/UnityLinePlugin/Plugins/Android/libs`
 
