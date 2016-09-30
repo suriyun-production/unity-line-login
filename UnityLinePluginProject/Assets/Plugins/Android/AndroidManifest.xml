@@ -25,6 +25,12 @@
     android:configChanges="keyboard|orientation"
     android:screenOrientation="sensor">
     </activity>
+    <meta-data
+    android:name="jp.line.sdk.ChannelId"
+    android:value="1482352269" />
+    <meta-data
+    android:name="jp.line.sdk.AuthScheme"
+    android:value="line.1482352269" />
   </application>
   <uses-sdk android:minSdkVersion="15" android:targetSdkVersion="24" />
   <uses-feature android:glEsVersion="0x00020000" />
@@ -33,10 +39,4 @@
   <uses-feature android:name="android.hardware.touchscreen.multitouch.distinct" android:required="false" />
 
   <uses-permission android:name="android.permission.INTERNET" />
-  <meta-data
-  android:name="jp.line.sdk.ChannelId"
-  android:value="1482352269" />
-  <meta-data
-  android:name="jp.line.sdk.AuthScheme"
-  android:value="line.1482352269" />
 </manifest>
