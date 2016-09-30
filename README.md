@@ -8,7 +8,8 @@ Now it's support just Android, for iOS coming soon...
 
 * Login/Logout
 * Get Profile
-Seem like another feature have to implement at backend side
+
+Seem like another features have to implement at backend side
 
 ## How to build Unity project
 
