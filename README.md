@@ -4,6 +4,12 @@ This is LINE sdk implementation for Unity3d
 
 Now it's support just Android, for iOS coming soon...
 
+## Support features
+
+* Login/Logout
+* Get Profile
+Seem like another feature have to implement at backend side
+
 ## How to build Unity project
 
 I've prepared the example project, The folder `/UnityLinePluginProject`
