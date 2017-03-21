@@ -1,42 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.insthync.TestUnityLinePlugin" android:versionName="1.0" android:versionCode="1" android:installLocation="preferExternal">
-  <supports-screens android:smallScreens="true" android:normalScreens="true" android:largeScreens="true" android:xlargeScreens="true" android:anyDensity="true" />
-  <application android:theme="@style/UnityThemeSelector" android:icon="@drawable/app_icon" android:label="@string/app_name" android:debuggable="false" android:isGame="false" android:banner="@drawable/app_banner">
-    <activity android:name="com.unity3d.player.UnityPlayerActivity" android:label="@string/app_name" android:screenOrientation="portrait" android:launchMode="singleTask" android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="com.insthync.TestUnityLinePlugin" android:installLocation="preferExternal">
+  <supports-screens android:anyDensity="true" android:largeScreens="true" android:normalScreens="true" android:smallScreens="true" android:xlargeScreens="true" />
+  <application android:icon="@drawable/app_icon" android:label="@string/app_name" android:theme="@style/UnityThemeSelector" android:debuggable="false" android:isGame="false" android:banner="@drawable/app_banner">
+    <activity android:label="@string/app_name" android:name="com.unity3d.player.UnityPlayerActivity" android:screenOrientation="portrait" android:launchMode="singleTask" android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
       <meta-data android:name="unityplayer.UnityActivity" android:value="true" />
     </activity>
-    <activity android:name="jp.line.android.sdk.activity.LineAuthCompleteActivity"
-    android:configChanges="keyboard|orientation"
-    android:exported="true"
-    android:screenOrientation="sensor">
+    <!--
+         launchMode must not be singleInstance.
+         This class launches a browser. In case of singleInstance, the browser is launched on a Task
+         different from this Activity. Then the browser may show a previous page in the history of
+         the browser when back key is pressed.
+        -->
+    <activity android:configChanges="orientation|screenSize|keyboardHidden" android:exported="true" android:launchMode="singleTask" android:name="com.linecorp.linesdk.auth.internal.LineAuthenticationActivity" android:theme="@style/LineSdk_AuthenticationActivity">
       <intent-filter>
-          <action android:name="android.intent.action.VIEW" />
-          <category android:name="android.intent.category.DEFAULT" />
-          <category android:name="android.intent.category.BROWSABLE" />
-          <data android:scheme="line.1482352269" />
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+        <data android:scheme="lineauth" />
       </intent-filter>
     </activity>
-    <activity android:name="jp.line.android.sdk.activity.WebLoginActivity"
-    android:exported="false"
-    android:configChanges="keyboard|orientation"
-    android:screenOrientation="sensor">
+    <activity android:name="com.suriyun.lineunity.LineLoginActivity">
     </activity>
-    <meta-data
-    android:name="jp.line.sdk.ChannelId"
-    android:value="1482352269" />
-    <meta-data
-    android:name="jp.line.sdk.AuthScheme"
-    android:value="line.1482352269" />
   </application>
-  <uses-sdk android:minSdkVersion="15" android:targetSdkVersion="24" />
+  <uses-sdk android:minSdkVersion="19" android:targetSdkVersion="23" />
   <uses-feature android:glEsVersion="0x00020000" />
   <uses-feature android:name="android.hardware.touchscreen" android:required="false" />
   <uses-feature android:name="android.hardware.touchscreen.multitouch" android:required="false" />
   <uses-feature android:name="android.hardware.touchscreen.multitouch.distinct" android:required="false" />
-
-  <uses-permission android:name="android.permission.INTERNET" />
 </manifest>

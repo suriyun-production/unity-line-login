@@ -13,7 +13,7 @@ public class LineDemo : MonoBehaviour {
         plugin.Init();
         plugin.onLoginSuccess = (login) =>
         {
-            messageText.text = "Login Success mid: " + login.profile.userId + " accessToken: " + login.credential.accessToken;
+            messageText.text = "Login Success userId: " + login.profile.userId + " accessToken: " + login.credential.accessToken;
         };
         plugin.onApiError = (error) =>
         {
@@ -25,7 +25,7 @@ public class LineDemo : MonoBehaviour {
         };
         plugin.onProfileReceived = (profile) =>
         {
-            messageText.text = "My Profile Received mid: " + profile.userId + " displayName: " + profile.displayName + " pictureUrl: " + profile.pictureUrl;
+            messageText.text = "My Profile Received userId: " + profile.userId + " displayName: " + profile.displayName + " pictureUrl: " + profile.pictureUrl;
         };
     }
 }
