@@ -51,6 +51,7 @@ public class LineLoginActivity extends Activity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == LOGIN_REQUEST_CODE) {
             LineUnityPlugin.getInstance().validateLoginResult(LineLoginApi.getLoginResultFromIntent(data));
+            finish();
         }
     }
 }
