@@ -1,33 +1,18 @@
 ﻿using UnityEngine;
 
-namespace Com.Insthync.LinePlugin
+namespace Com.Suriyun.LinePlugin
 {
-    public enum LineSdkApiError
-    {
-        NOT_FOUND_ACCESS_TOKEN,
-        SERVER_ERROR,
-        ILLEGAL_RESPONSE,
-        UNKNOWN
-    }
-
-    public enum LineSdkLoginError
-    {
-        FAILED_START_LOGIN_ACTIVITY,
-        FAILED_A2A_LOGIN,
-        FAILED_WEB_LOGIN,
-        UNKNOWN
-    }
 
     public class UnityLinePlugin : MonoBehaviour
     {
+        public string channelId;
         public ILinePluginHandler Handler { get; protected set; }
         public bool IsInit { get; protected set; }
-        public System.Action<LineAccessToken> onLoginSuccess;
-        public System.Action onLoginCanceled;
-        public System.Action<LineSdkLoginError> onLoginError;
-        public System.Action<LineSdkApiError> onApiError;
+        public System.Action<LineLogin> onLoginSuccess;
+        public System.Action<LineError> onApiError;
         public System.Action<LineAccessToken> onAccessTokenReceived;
-        public System.Action<LineProfile> onMyProfileReceived;
+        public System.Action<LineCredential> onCredentialReceived;
+        public System.Action<LineProfile> onProfileReceived;
 
         protected virtual void Awake()
         {
@@ -46,15 +31,22 @@ namespace Com.Insthync.LinePlugin
             if (Handler != null)
             {
                 IsInit = true;
-                Handler.Init(name);
+                Handler.Init(name, channelId);
             }
         }
 
-        public void Login()
+        public void LoginAutomatically()
         {
             if (!IsInit)
                 return;
-            Handler.Login();
+            Handler.LoginAutomatically();
+        }
+
+        public void LoginManually()
+        {
+            if (!IsInit)
+                return;
+            Handler.LoginManually();
         }
 
         public void Logout()
@@ -64,40 +56,46 @@ namespace Com.Insthync.LinePlugin
             Handler.Logout();
         }
 
-        public void GetMyProfile()
+        public void VerifyToken()
         {
             if (!IsInit)
                 return;
-            Handler.GetMyProfile();
+            Handler.VerifyToken();
         }
 
-        public virtual void OnMessageLoginSuccess(string json)
+        public void GetCurrentAccessToken()
         {
-            LineAccessToken accessToken = JsonUtility.FromJson<LineAccessToken>(json);
-            if (onLoginSuccess != null)
-                onLoginSuccess(accessToken);
+            if (!IsInit)
+                return;
+            Handler.GetCurrentAccessToken();
         }
 
-        public virtual void OnMessageLoginCanceled(string json)
+        public void RefreshToken()
         {
-            if (onLoginCanceled != null)
-                onLoginCanceled();
+            if (!IsInit)
+                return;
+            Handler.RefreshToken();
         }
 
-        public virtual void OnMessageLoginError(string json)
+        public void GetProfile()
         {
-            LineError error = JsonUtility.FromJson<LineError>(json);
-            LineSdkLoginError loginError = LineSdkLoginErrorAsInt.ToEnum(error.error);
-            if (onLoginError != null)
-                onLoginError(loginError);
+            if (!IsInit)
+                return;
+            Handler.GetProfile();
         }
 
         public virtual void OnMessageApiError(string json)
         {
             LineError error = JsonUtility.FromJson<LineError>(json);
-            LineSdkApiError apiError = LineSdkApiErrorAsInt.ToEnum(error.error);
             if (onApiError != null)
-                onApiError(apiError);
+                onApiError(error);
+        }
+
+        public virtual void OnMessageLoginSuccess(string json)
+        {
+            LineLogin loginResult = JsonUtility.FromJson<LineLogin>(json);
+            if (onLoginSuccess != null)
+                onLoginSuccess(loginResult);
         }
 
         public virtual void OnMessageAccessTokenReceived(string json)
@@ -107,11 +105,18 @@ namespace Com.Insthync.LinePlugin
                 onAccessTokenReceived(accessToken);
         }
 
-        public virtual void OnMessageMyProfileReceived(string json)
+        public virtual void OnMessageCredentialReceived(string json)
+        {
+            LineCredential credential = JsonUtility.FromJson<LineCredential>(json);
+            if (onCredentialReceived != null)
+                onCredentialReceived(credential);
+        }
+
+        public virtual void OnMessageProfileReceived(string json)
         {
             LineProfile profile = JsonUtility.FromJson<LineProfile>(json);
-            if (onMyProfileReceived != null)
-                onMyProfileReceived(profile);
+            if (onProfileReceived != null)
+                onProfileReceived(profile);
         }
     }
 }

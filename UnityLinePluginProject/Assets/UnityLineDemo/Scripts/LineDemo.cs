@@ -1,4 +1,4 @@
-﻿using Com.Insthync.LinePlugin;
+﻿using Com.Suriyun.LinePlugin;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
@@ -11,17 +11,9 @@ public class LineDemo : MonoBehaviour {
     public void Init()
     {
         plugin.Init();
-        plugin.onLoginSuccess = (token) =>
+        plugin.onLoginSuccess = (login) =>
         {
-            messageText.text = "Login Success mid: " + token.mid + " accessToken: " + token.accessToken;
-        };
-        plugin.onLoginCanceled = () =>
-        {
-            messageText.text = "Login Canceled";
-        };
-        plugin.onLoginError = (error) =>
-        {
-            messageText.text = "Login Error: " + error; 
+            messageText.text = "Login Success mid: " + login.profile.userId + " accessToken: " + login.credential.accessToken;
         };
         plugin.onApiError = (error) =>
         {
@@ -29,11 +21,11 @@ public class LineDemo : MonoBehaviour {
         };
         plugin.onAccessTokenReceived = (token) =>
         {
-            messageText.text = "Access Token Received mid: " + token.mid + " accessToken: " + token.accessToken;
+            messageText.text = "Access Token Received accessToken: " + token.accessToken;
         };
-        plugin.onMyProfileReceived = (profile) =>
+        plugin.onProfileReceived = (profile) =>
         {
-            messageText.text = "My Profile Received mid: " + profile.mid + " displayName: " + profile.displayName + " pictureUrl: " + profile.pictureUrl;
+            messageText.text = "My Profile Received mid: " + profile.userId + " displayName: " + profile.displayName + " pictureUrl: " + profile.pictureUrl;
         };
     }
 }

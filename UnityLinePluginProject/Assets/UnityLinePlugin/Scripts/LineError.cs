@@ -1,11 +1,12 @@
-﻿namespace Com.Insthync.LinePlugin
+﻿namespace Com.Suriyun.LinePlugin
 {
     [System.Serializable]
     public class LineError
     {
-        public int error;
-        public int serverErrorCode;
-        public string serverErrorMessage;
+        public bool networkError;
+        public bool serverError;
+        public int httpResponseCode;
+        public string message;
     }
 }
 

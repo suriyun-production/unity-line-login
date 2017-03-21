@@ -19,8 +19,8 @@ import java.util.List;
 
 public class LineUnityPlugin {
     public static final String TAG = "LineUnityPlugin";
-    public static final String METHOD_LOGIN_SUCCUSS = "OnMessageLoginSuccess";
     public static final String METHOD_API_ERROR = "OnMessageApiError";
+    public static final String METHOD_LOGIN_SUCCUSS = "OnMessageLoginSuccess";
     public static final String METHOD_ACCESS_TOKEN_RECEIVED = "OnMessageAccessTokenReceived";
     public static final String METHOD_CREDENTIAL_RECEIVED = "OnMessageCredentialReceived";
     public static final String METHOD_PROFILE_RECEIVED = "OnMessageProfileReceived";

@@ -1,34 +1,58 @@
 ﻿using UnityEngine;
 
-namespace Com.Insthync.LinePlugin
+namespace Com.Suriyun.LinePlugin
 {
     public class AndroidLinePluginHandler : ILinePluginHandler
     {
         AndroidJavaObject pluginObject;
 
-        public void Init(string gameObjectName)
+        public void Init(string gameObjectName, string channelId)
         {
-            pluginObject = new AndroidJavaObject("com.insthync.lineunity.LineUnityPlugin");
-            pluginObject.Call("Init", gameObjectName);
+            pluginObject = new AndroidJavaObject("com.suriyun.lineunity.LineUnityPlugin");
+            pluginObject.Call("init", gameObjectName, channelId);
             Debug.Log("Init() called");
         }
 
-        public void Login()
+        public void LoginAutomatically()
         {
-            pluginObject.Call("Login");
-            Debug.Log("Login() called");
+            pluginObject.Call("loginAutomatically");
+            Debug.Log("LoginAutomatically() called");
+        }
+
+        public void LoginManually()
+        {
+            pluginObject.Call("loginManually");
+            Debug.Log("LoginAutomatically() called");
         }
 
         public void Logout()
         {
-            pluginObject.Call("Logout");
+            pluginObject.Call("logout");
             Debug.Log("Logout() called");
         }
 
-        public void GetMyProfile()
+        public void VerifyToken()
         {
-            pluginObject.Call("GetMyProfile");
-            Debug.Log("GetMyProfile() called");
+            pluginObject.Call("verifyToken");
+            Debug.Log("VerifyToken() called");
+        }
+
+        public void GetCurrentAccessToken()
+        {
+            pluginObject.Call("getCurrentAccessToken");
+            Debug.Log("GetCurrentAccessToken() called");
+        }
+
+        public void RefreshToken()
+        {
+            pluginObject.Call("refreshToken");
+            Debug.Log("RefreshToken() called");
+        }
+
+        public void GetProfile()
+        {
+            pluginObject.Call("getProfile");
+            Debug.Log("GetProfile() called");
         }
     }
 }
