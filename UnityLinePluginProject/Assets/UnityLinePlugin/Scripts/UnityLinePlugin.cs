@@ -20,6 +20,8 @@ namespace Com.Suriyun.LinePlugin
             // TODO: Create handler for iOS later.
 #if UNITY_ANDROID
             Handler = new AndroidLinePluginHandler();
+#elif UNITY_IOS
+            Handler = new IOSLinePluginHandler();
 #endif
             IsInit = false;
         }
