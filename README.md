@@ -24,7 +24,5 @@ Then open folder `/UnityLinePluginProject` with Unity3d to build.
 
 * It's require `Android Studio` and `LINE SDK`
 * Open project at `./AndroidProject/LineUnity/`
-* Import `LINE SDK` via Menu File -> New -> New Module -> Import .JAR/.AAR Package -> Choose the `LINE SDK`
-* Setting up the `LINE SDK` as dependency by Right click on `app` -> Open Module Settings -> Dependencies -> Press (+) -> Module dependency -> Choose you imported module
 * Simply build by Menu Build -> Rebuild
-* After built new .aar file will be created at `./AndroidProject/LineUnity/app/build/outputs/aar` copy it to your Unity's Assets/Plugins/Android, Including with `LINE SDK`
+* After built new .aar file will be created at `./AndroidProject/LineUnity/app/build/outputs/aar` copy it to your Unity's Assets/Plugins/Android and Remove old .aar file (For this repo its named as `line-plugin.aar`)
