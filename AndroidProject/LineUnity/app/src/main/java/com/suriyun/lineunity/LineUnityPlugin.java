@@ -64,8 +64,8 @@ public class LineUnityPlugin {
         return isInit;
     }
 
-    public void loginAutomatically() {
-        Log.d(TAG, "loginAutomatically()");
+    public void login() {
+        Log.d(TAG, "login()");
         if (!checkInitToDoAction())
             return;
 
@@ -81,8 +81,8 @@ public class LineUnityPlugin {
         });
     }
 
-    public void loginManually() {
-        Log.d(TAG, "loginManually()");
+    public void loginWebView() {
+        Log.d(TAG, "loginWebView()");
         if (!checkInitToDoAction())
             return;
 

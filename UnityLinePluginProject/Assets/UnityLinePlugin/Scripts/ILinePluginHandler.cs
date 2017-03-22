@@ -3,8 +3,8 @@
     public interface ILinePluginHandler
     {
         void Init(string gameObjectName, string channelId);
-        void LoginAutomatically();
-        void LoginManually();
+        void Login();
+        void LoginWebView();
         void Logout();
         void VerifyToken();
         void GetCurrentAccessToken();

@@ -35,18 +35,18 @@ namespace Com.Suriyun.LinePlugin
             }
         }
 
-        public void LoginAutomatically()
+        public void Login()
         {
             if (!IsInit)
                 return;
-            Handler.LoginAutomatically();
+            Handler.Login();
         }
 
-        public void LoginManually()
+        public void LoginWebView()
         {
             if (!IsInit)
                 return;
-            Handler.LoginManually();
+            Handler.LoginWebView();
         }
 
         public void Logout()

@@ -13,16 +13,16 @@ namespace Com.Suriyun.LinePlugin
             Debug.Log("Init() called");
         }
 
-        public void LoginAutomatically()
+        public void Login()
         {
-            pluginObject.Call("loginAutomatically");
-            Debug.Log("LoginAutomatically() called");
+            pluginObject.Call("login");
+            Debug.Log("Login() called");
         }
 
-        public void LoginManually()
+        public void LoginWebView()
         {
-            pluginObject.Call("loginManually");
-            Debug.Log("LoginAutomatically() called");
+            pluginObject.Call("loginWebView");
+            Debug.Log("LoginWebView() called");
         }
 
         public void Logout()
