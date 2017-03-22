@@ -12,6 +12,7 @@ namespace Com.Suriyun.LinePlugin
         public System.Action<LineError> onApiError;
         public System.Action<LineAccessToken> onAccessTokenReceived;
         public System.Action<LineCredential> onCredentialReceived;
+        public System.Action<LineVerifyResult> onVerifyResultReceived;
         public System.Action<LineProfile> onProfileReceived;
 
         protected virtual void Awake()
@@ -110,6 +111,13 @@ namespace Com.Suriyun.LinePlugin
             LineCredential credential = JsonUtility.FromJson<LineCredential>(json);
             if (onCredentialReceived != null)
                 onCredentialReceived(credential);
+        }
+
+        public virtual void OnMessageVerifyResultReceived(string json)
+        {
+            LineVerifyResult result = JsonUtility.FromJson<LineVerifyResult>(json);
+            if (onVerifyResultReceived != null)
+                onVerifyResultReceived(result);
         }
 
         public virtual void OnMessageProfileReceived(string json)

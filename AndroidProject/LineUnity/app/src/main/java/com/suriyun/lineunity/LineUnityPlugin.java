@@ -23,6 +23,7 @@ public class LineUnityPlugin {
     public static final String METHOD_LOGIN_SUCCUSS = "OnMessageLoginSuccess";
     public static final String METHOD_ACCESS_TOKEN_RECEIVED = "OnMessageAccessTokenReceived";
     public static final String METHOD_CREDENTIAL_RECEIVED = "OnMessageCredentialReceived";
+    public static final String METHOD_VERIFY_RESULT_RECEIVED = "OnMessageVerifyResultReceived";
     public static final String METHOD_PROFILE_RECEIVED = "OnMessageProfileReceived";
 
     private static LineUnityPlugin instance;
@@ -110,11 +111,7 @@ public class LineUnityPlugin {
         if (result.isSuccess()) {
             sendLoginSuccessMessage(result);
         } else {
-            sendMessage(METHOD_API_ERROR, errorToJson(
-                    result.getResponseCode() == LineApiResponseCode.CANCEL,
-                    result.getResponseCode() != LineApiResponseCode.SUCCESS,
-                    result.getErrorData())
-            );
+            sendMessage(METHOD_API_ERROR, errorToJson(result.getErrorData().getMessage()));
         }
     }
 
@@ -125,7 +122,7 @@ public class LineUnityPlugin {
 
         LineApiResponse<LineCredential> response = lineApiClient.verifyToken();
         if (response.isSuccess()) {
-            sendCredentialMessage(response.getResponseData());
+            sendVerifyResultMessage(response.getResponseData());
         } else {
             sendApiErrorMessage(response);
         }
@@ -187,8 +184,12 @@ public class LineUnityPlugin {
         sendMessage(METHOD_CREDENTIAL_RECEIVED, credentialToJson(credential));
     }
 
+    public void sendVerifyResultMessage(LineCredential credential) {
+        sendMessage(METHOD_VERIFY_RESULT_RECEIVED, verifyResultToJson(credential));
+    }
+
     public void sendApiErrorMessage(LineApiResponse response) {
-        sendMessage(METHOD_API_ERROR, errorToJson(response));
+        sendMessage(METHOD_API_ERROR, errorToJson(response.getErrorData().getMessage()));
     }
 
     public void sendMessage(String method, String json) {
@@ -203,9 +204,8 @@ public class LineUnityPlugin {
     public static String accessTokenToJson(LineAccessToken accessToken) {
 
         return "{\"accessToken\":\"" + accessToken.getAccessToken() + "\"," +
-                "\"getEstimatedExpirationTimeMillis\":" + accessToken.getEstimatedExpirationTimeMillis() + "," +
-                "\"getExpiresInMillis\":" + accessToken.getExpiresInMillis() + "," +
-                "\"getIssuedClientTimeMillis\":" + accessToken.getIssuedClientTimeMillis() + "" +
+                "\"estimatedExpirationTimeMillis\":" + accessToken.getEstimatedExpirationTimeMillis() + "," +
+                "\"expiresInMillis\":" + accessToken.getExpiresInMillis() + "" +
                 "}";
     }
 
@@ -218,26 +218,27 @@ public class LineUnityPlugin {
     }
 
     public static String credentialToJson(LineCredential credential) {
-        List<String> permission = credential.getPermission();
-        String permissionJson = "[";
-        for (int i = 0; i < permission.size(); ++i) {
+        return "{\"accessToken\":" + accessTokenToJson(credential.getAccessToken()) + "," +
+                "\"permission\":" + stringListToJson(credential.getPermission()) + "}";
+    }
+
+    public static String verifyResultToJson(LineCredential credential) {
+        return "{\"expiresInMillis\":" + credential.getAccessToken().getExpiresInMillis() + "," +
+                "\"permission\":" + stringListToJson(credential.getPermission()) + "}";
+    }
+
+    public static String errorToJson(String errorMessage) {
+        return "{\"message\":\"" + errorMessage + "\"}";
+    }
+
+    public static String stringListToJson(List<String> list) {
+        String listJson = "[";
+        for (int i = 0; i < list.size(); ++i) {
             if (i > 0)
-                permissionJson += ",";
-            permissionJson += "\"" + permission.get(i) + "\"";
+                listJson += ",";
+            listJson += "\"" + list.get(i) + "\"";
         }
-        permissionJson += "]";
-        return "{\"accessToken\":\"" + credential.getAccessToken() + "\"," +
-                "\"permission\":" + permissionJson + "}";
-    }
-
-    public static String errorToJson(boolean isNetworkError, boolean isServerError, LineApiError error) {
-        return "{\"networkError\":" + isNetworkError + "," +
-                "\"serverError\":" + isServerError + "," +
-                "\"httpResponseCode\":" + error.getHttpResponseCode() + "," +
-                "\"message\":\"" + error.getMessage() + "\"}";
-    }
-
-    public static String errorToJson(LineApiResponse response) {
-        return errorToJson(response.isNetworkError(), response.isServerError(), response.getErrorData());
+        listJson += "]";
+        return listJson;
     }
 }
