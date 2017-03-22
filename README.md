@@ -2,7 +2,7 @@
 
 This is LINE sdk implementation for Unity3d
 
-Now it's support just Android, for iOS coming soon...
+Now it's support just Android, for iOS it's under testing version
 
 ## Support features
 
