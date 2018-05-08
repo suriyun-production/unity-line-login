@@ -17,6 +17,6 @@ android {
 }
 
 dependencies {
-    compile project(':line-sdk-4.0.0')
+    compile project(':line-sdk')
     compile project(':classes')
 }
