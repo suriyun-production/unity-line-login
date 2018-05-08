@@ -15,14 +15,6 @@
          different from this Activity. Then the browser may show a previous page in the history of
          the browser when back key is pressed.
         -->
-    <activity android:configChanges="orientation|screenSize|keyboardHidden" android:exported="true" android:launchMode="singleTask" android:name="com.linecorp.linesdk.auth.internal.LineAuthenticationActivity" android:theme="@style/LineSdk_AuthenticationActivity">
-      <intent-filter>
-        <action android:name="android.intent.action.VIEW" />
-        <category android:name="android.intent.category.DEFAULT" />
-        <category android:name="android.intent.category.BROWSABLE" />
-        <data android:scheme="lineauth" />
-      </intent-filter>
-    </activity>
     <activity android:name="com.suriyun.lineunity.LineLoginActivity">
     </activity>
   </application>
